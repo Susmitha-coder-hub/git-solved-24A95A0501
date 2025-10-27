@@ -30,14 +30,14 @@ Aditya University
 # DevOps Simulator
 
 A comprehensive CI/CD configuration management tool for enterprise deployments.  
-This simulator supports both **production** and **development** environments with separate configurations.
+This simulator supports both **production**, **development**, and now an **experimental AI-enhanced environment**.
 
 ---
 
 ## 📊 Project Status
-- **Version**: 1.0.0 (Production), 2.0.0-beta (Development)
-- **Environments**: Production & Development
-- **Student**: Nandhigramam Lakshmi Susmitha
+- **Version**: 3.0.0-experimental  
+- **Environments**: Production, Development, Experimental  
+- **Student**: Nandhigramam Lakshmi Susmitha  
 - **Student ID**: [Enter your ID here]
 
 ---
@@ -62,8 +62,36 @@ This simulator supports both **production** and **development** environments wit
 - Local PostgreSQL database  
 - Console-based monitoring  
 
+### Experimental Features
+- 🤖 AI-powered deployment optimization  
+- 🌐 Multi-cloud orchestration (AWS, Azure, GCP, DigitalOcean)  
+- 📈 Predictive scaling with machine learning  
+- 🔒 Zero-trust security architecture  
+- 🌊 Event-driven architecture  
+- 🎯 Chaos engineering tools  
+
 ---
 
 ## 🧩 Architecture
+See detailed documentation in `/docs` folder and `/docs/ai-integration.md`.
 
-See detailed documentation in:
+---
+
+## 🚀 Quick Start
+
+### Standard Mode
+1. Clone the repository  
+2. Configure environment variables  
+3. Run deployment script with `--experimental` flag  
+4. Monitor system through dashboard  
+
+### AI-Enhanced Mode
+```bash
+# Install AI dependencies
+pip install tensorflow keras
+
+# Initialize AI models
+./scripts/init-ai-models.sh
+
+# Start with AI-enhanced mode
+npm run start:ai

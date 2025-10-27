@@ -1,31 +1,41 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
-echo "======================================="
-echo "DevOps Simulator - Unified Deployment"
-echo "======================================="
+echo "================================================"
+echo "DevOps Simulator - Unified & Experimental Deploy"
+echo "================================================"
 
-# Default: Production Configuration
+# Default Configuration
 DEPLOY_ENV="production"
 DEPLOY_REGION="us-east-1"
 APP_PORT=8080
 
-# Optional: Development Mode
+# Experimental Flags
+AI_OPTIMIZATION=false
+CHAOS_TESTING=false
+DEPLOY_STRATEGY="standard"
+DEPLOY_CLOUDS=("aws" "azure" "gcp")
+
+# Optional Development Mode
 if [ "$1" == "dev" ]; then
   DEPLOY_ENV="development"
   DEPLOY_MODE="docker-compose"
   APP_PORT=3000
   ENABLE_DEBUG=true
+elif [ "$1" == "experimental" ]; then
+  DEPLOY_ENV="experimental"
+  DEPLOY_STRATEGY="canary"
+  AI_OPTIMIZATION=true
 fi
 
 echo "Environment: $DEPLOY_ENV"
 echo "Region: ${DEPLOY_REGION:-local}"
 echo "Port: $APP_PORT"
-if [ "$DEPLOY_ENV" == "development" ]; then
-  echo "Mode: $DEPLOY_MODE"
-  echo "Debug: $ENABLE_DEBUG"
+echo "Strategy: $DEPLOY_STRATEGY"
+if [ "$AI_OPTIMIZATION" = true ]; then
+  echo "AI Optimization: ENABLED"
 fi
-echo "======================================="
+echo "================================================"
 
 # Pre-deployment checks
 echo "Running pre-deployment checks..."
@@ -34,35 +44,15 @@ if [ ! -f "config/app-config.yaml" ]; then
   exit 1
 fi
 
-# Run environment-specific steps
+# Environment-specific logic
 if [ "$DEPLOY_ENV" == "production" ]; then
   echo "Starting production deployment..."
   echo "Pulling latest Docker images..."
   # docker pull devops-simulator:latest
-
   echo "Rolling update strategy initiated..."
   # kubectl rolling-update devops-simulator
-
   echo "Deployment completed successfully!"
   echo "Application available at: https://app.example.com"
 
-else
-  echo "Installing dependencies..."
-  npm install
-
-  echo "Running tests..."
-  npm test
-
-  echo "Starting development deployment..."
-  docker-compose up -d
-
-  echo "Waiting for application to start..."
-  sleep 5
-
-  echo "Performing health check..."
-  curl -f http://localhost:$APP_PORT/health || exit 1
-
-  echo "Deployment completed successfully!"
-  echo "Application available at: http://localhost:$APP_PORT"
-  echo "Hot reload enabled - code changes will auto-refresh"
-fi
+elif [ "$DEPLOY_ENV" == "development" ]; then
+  echo
